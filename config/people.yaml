@@ -1,0 +1,13 @@
+employees:
+
+  sofiane:
+    role: Security Architect
+    location: Zaventem
+    country: Belgium
+    timezone: Europe/Brussels
+
+  ibrahim:
+    role: Python Intern
+    location: Dakhla
+    country: Morocco
+    timezone: Africa/Casablanca

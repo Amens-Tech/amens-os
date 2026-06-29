@@ -1,0 +1,19 @@
+name: Amens Tech
+
+country: Belgium
+
+head_office:
+  city: Zaventem
+  country: Belgium
+
+working_language:
+  - French
+  - English
+
+development_language: Python
+
+slack_workspace: amens-tech
+
+default_channel: amens-dev
+
+github_organization: Amens-Tech
