@@ -1,19 +1,22 @@
 name: Amens Tech
-
+type: cybersecurity_software_factory
 country: Belgium
 
 head_office:
   city: Zaventem
   country: Belgium
+  timezone: Europe/Brussels
 
-working_language:
+working_languages:
   - French
   - English
 
 development_language: Python
 
-slack_workspace: amens-tech
+slack:
+  workspace: amens-tech
+  default_channel: amens-dev
 
-default_channel: amens-dev
-
-github_organization: Amens-Tech
+github:
+  organization: Amens-Tech
+  os_repository: amens-os

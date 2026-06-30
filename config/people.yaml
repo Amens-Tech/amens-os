@@ -1,13 +1,29 @@
 employees:
-
   sofiane:
-    role: Security Architect
+    full_name: Sofiane
+    role: Cybersecurity Expert
+    seniority: expert
     location: Zaventem
     country: Belgium
     timezone: Europe/Brussels
+    responsibilities:
+      - initiate_projects
+      - define_security_requirements
+      - review_work
+      - validate_deliverables
+    coding_allowed: false
 
   ibrahim:
-    role: Python Intern
+    full_name: Ibrahim
+    role: Python Intern Developer
+    seniority: intern
     location: Dakhla
     country: Morocco
     timezone: Africa/Casablanca
+    responsibilities:
+      - develop_python_tools
+      - write_tests
+      - update_documentation
+      - commit_progressively
+    coding_allowed: true
+    max_active_projects: 1
