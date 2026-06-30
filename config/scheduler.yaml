@@ -1,0 +1,71 @@
+working_days:
+  - monday
+  - tuesday
+  - wednesday
+  - thursday
+  - friday
+
+working_hours:
+
+  sofiane:
+    timezone: Europe/Brussels
+    start: "08:30"
+    end: "17:30"
+
+  ibrahim:
+    timezone: Africa/Casablanca
+    start: "09:00"
+    end: "18:00"
+
+lunch_break:
+
+  sofiane:
+    start: "12:00"
+    end: "13:00"
+
+  ibrahim:
+    start: "13:00"
+    end: "14:00"
+
+response_delay_minutes:
+
+  sofiane:
+    min: 5
+    max: 120
+
+  ibrahim:
+    min: 10
+    max: 90
+
+commit_frequency:
+
+  min_per_day: 1
+  max_per_day: 5
+
+project_duration_days:
+
+  small:
+    min: 2
+    max: 5
+
+  medium:
+    min: 5
+    max: 15
+
+  large:
+    min: 15
+    max: 45
+
+random_events:
+
+  ibrahim_questions_probability: 0.35
+  sofiane_review_probability: 0.45
+  documentation_probability: 0.25
+  refactoring_probability: 0.20
+
+holidays:
+
+  belgium: true
+  morocco: true
+
+weekends_enabled: false
