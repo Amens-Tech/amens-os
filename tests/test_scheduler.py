@@ -30,3 +30,8 @@ def test_sofiane():
 def test_ibrahim():
     scheduler = Scheduler()
     assert isinstance(scheduler.is_employee_working("ibrahim"), bool)
+
+def test_next_event():
+    scheduler = Scheduler()
+    event = scheduler.next_event()
+    assert event is not None

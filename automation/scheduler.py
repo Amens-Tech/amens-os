@@ -1,6 +1,9 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
+import random
 import yaml
+
+from automation.events import Event, EventType
 
 
 class Scheduler:
@@ -34,4 +37,41 @@ class Scheduler:
         return (
             self.is_employee_working("sofiane")
             or self.is_employee_working("ibrahim")
+        )
+
+    def next_event(self):
+
+        if not self.company_is_open():
+            return Event(
+                EventType.WAIT,
+                "system",
+                "Company closed",
+                datetime.now(),
+            )
+
+        events = [
+            (
+                EventType.SLACK_MESSAGE,
+                "sofiane",
+                "Discuss current project",
+            ),
+            (
+                EventType.GIT_COMMIT,
+                "ibrahim",
+                "Commit Python changes",
+            ),
+            (
+                EventType.GIT_PUSH,
+                "ibrahim",
+                "Push latest commits",
+            ),
+        ]
+
+        event = random.choice(events)
+
+        return Event(
+            event_type=event[0],
+            actor=event[1],
+            description=event[2],
+            created_at=datetime.now(),
         )
