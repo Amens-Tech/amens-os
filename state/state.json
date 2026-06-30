@@ -1,11 +1,11 @@
 {
-  "current_project": null,
+  "current_project": "windows-evtx-parser",
   "employees": {
     "sofiane": {
-      "status": "idle"
+      "status": "planning"
     },
     "ibrahim": {
-      "status": "idle"
+      "status": "waiting"
     }
   },
   "last_event": null

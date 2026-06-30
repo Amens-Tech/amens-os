@@ -14,3 +14,11 @@ def test_planner_first_project():
 
     assert event.event_type == EventType.SLACK_MESSAGE
     assert event.actor == "sofiane"
+
+def test_state_updated():
+    planner = Planner()
+    planner.next_action()
+
+    state = planner.load_state()
+
+    assert state["current_project"] is not None

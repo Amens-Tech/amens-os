@@ -19,6 +19,10 @@ class Planner:
         with open(self.state_file) as f:
             return json.load(f)
 
+    def save_state(self, state):
+        with open(self.state_file, "w") as f:
+            json.dump(state, f, indent=2)
+
     def load_backlog(self):
         with open(self.backlog_file) as f:
             return json.load(f)
@@ -34,6 +38,12 @@ class Planner:
             project = next(
                 p for p in backlog if p["status"] == "todo"
             )
+
+            state["current_project"] = project["name"]
+            state["employees"]["sofiane"]["status"] = "planning"
+            state["employees"]["ibrahim"]["status"] = "waiting"
+
+            self.save_state(state)
 
             return Event(
                 event_type=EventType.SLACK_MESSAGE,
