@@ -52,9 +52,22 @@ class Planner:
                 created_at=datetime.now(),
             )
 
+        if state["employees"]["ibrahim"]["status"] == "waiting":
+
+            state["employees"]["ibrahim"]["status"] = "working"
+
+            self.save_state(state)
+
+            return Event(
+                event_type=EventType.SLACK_MESSAGE,
+                actor="ibrahim",
+                description="I'll start working on it.",
+                created_at=datetime.now(),
+            )
+
         return Event(
-            event_type=EventType.WAIT,
-            actor="system",
-            description="Nothing to do",
+            event_type=EventType.GIT_COMMIT,
+            actor="ibrahim",
+            description="Continue Python development",
             created_at=datetime.now(),
         )
