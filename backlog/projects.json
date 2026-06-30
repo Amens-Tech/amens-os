@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "windows-evtx-parser",
+    "priority": "high",
+    "status": "todo",
+    "description": "Python parser for Windows EVTX logs."
+  },
+  {
+    "id": 2,
+    "name": "sigma-rule-validator",
+    "priority": "medium",
+    "status": "todo",
+    "description": "Validate Sigma detection rules."
+  },
+  {
+    "id": 3,
+    "name": "ioc-extractor",
+    "priority": "medium",
+    "status": "todo",
+    "description": "Extract IOCs from text files."
+  }
+]

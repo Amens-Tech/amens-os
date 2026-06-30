@@ -1,17 +1,26 @@
 import json
 from pathlib import Path
+from datetime import datetime
 
 from automation.events import Event, EventType
-from datetime import datetime
 
 
 class Planner:
 
-    def __init__(self, state_file="state/state.json"):
+    def __init__(
+        self,
+        state_file="state/state.json",
+        backlog_file="backlog/projects.json",
+    ):
         self.state_file = Path(state_file)
+        self.backlog_file = Path(backlog_file)
 
     def load_state(self):
-        with open(self.state_file, "r") as f:
+        with open(self.state_file) as f:
+            return json.load(f)
+
+    def load_backlog(self):
+        with open(self.backlog_file) as f:
             return json.load(f)
 
     def next_action(self):
@@ -19,16 +28,23 @@ class Planner:
         state = self.load_state()
 
         if state["current_project"] is None:
+
+            backlog = self.load_backlog()
+
+            project = next(
+                p for p in backlog if p["status"] == "todo"
+            )
+
             return Event(
                 event_type=EventType.SLACK_MESSAGE,
                 actor="sofiane",
-                description="Launch a new cybersecurity project",
+                description=f"Launch project: {project['name']}",
                 created_at=datetime.now(),
             )
 
         return Event(
             event_type=EventType.WAIT,
             actor="system",
-            description="No action required",
+            description="Nothing to do",
             created_at=datetime.now(),
         )
