@@ -1,7 +1,4 @@
 {
-  "company": {
-    "status": "open"
-  },
   "current_project": null,
   "employees": {
     "sofiane": {
@@ -10,5 +7,6 @@
     "ibrahim": {
       "status": "idle"
     }
-  }
+  },
+  "last_event": null
 }
