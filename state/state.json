@@ -1,0 +1,14 @@
+{
+  "company": {
+    "status": "open"
+  },
+  "current_project": null,
+  "employees": {
+    "sofiane": {
+      "status": "idle"
+    },
+    "ibrahim": {
+      "status": "idle"
+    }
+  }
+}
