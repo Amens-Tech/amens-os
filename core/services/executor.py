@@ -1,6 +1,7 @@
 from connectors.openclaw import OpenClawConnector
 from core.services.state_manager import StateManager
 from core.services.prompt_builder import PromptBuilder
+from core.services.artifact_service import ArtifactService
 from connectors.slack import SlackConnector
 from core.models.event import EventType
 
@@ -27,6 +28,23 @@ class Executor:
                     self.state["current_project"],
                 ),
             )
+
+            artifact_map = {
+                "sofiane": "vision" if self.state.get("phase") == "planning" else "review",
+                "product-manager": "backlog",
+                "ibrahim": "development",
+                "qa": "qa",
+            }
+
+            artifact_name = artifact_map.get(event.actor)
+
+            if artifact_name and self.state.get("current_project"):
+                ArtifactService(
+                    self.state["current_project"]
+                ).write(
+                    artifact_name,
+                    reply,
+                )
 
             self.slack.send_message(
                 "amens-dev",
