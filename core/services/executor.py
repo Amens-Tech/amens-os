@@ -2,6 +2,7 @@ from connectors.openclaw import OpenClawConnector
 from core.services.state_manager import StateManager
 from core.services.prompt_builder import PromptBuilder
 from core.services.artifact_service import ArtifactService
+from core.services.status_parser import StatusParser
 from connectors.slack import SlackConnector
 from core.models.event import EventType
 
@@ -28,6 +29,10 @@ class Executor:
                     self.state["current_project"],
                 ),
             )
+
+            status = StatusParser.parse(reply)
+
+            print(f"[STATUS] {status}")
 
             artifact_map = {
                 "sofiane": "vision" if self.state.get("phase") == "planning" else "review",
