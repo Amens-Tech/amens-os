@@ -13,11 +13,14 @@ def test_planner_first_project(tmp_path):
     state_file = tmp_path / "state.json"
     state_file.write_text(json.dumps({
         "current_project": None,
+        "phase": "idle",
+        "current_story": None,
         "employees": {
             "sofiane": {"status": "idle"},
-            "ibrahim": {"status": "idle"}
-        },
-        "last_event": None
+            "product-manager": {"status": "idle"},
+            "ibrahim": {"status": "idle"},
+            "qa": {"status": "idle"}
+        }
     }))
 
     planner = Planner(state_file=state_file)
@@ -31,11 +34,14 @@ def test_state_updated(tmp_path):
     state_file = tmp_path / "state.json"
     state_file.write_text(json.dumps({
         "current_project": None,
+        "phase": "idle",
+        "current_story": None,
         "employees": {
             "sofiane": {"status": "idle"},
-            "ibrahim": {"status": "idle"}
-        },
-        "last_event": None
+            "product-manager": {"status": "idle"},
+            "ibrahim": {"status": "idle"},
+            "qa": {"status": "idle"}
+        }
     }))
 
     planner = Planner(state_file=state_file)

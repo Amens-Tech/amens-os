@@ -1,12 +1,19 @@
 {
   "current_project": "windows-evtx-parser",
+  "phase": "planning",
+  "current_story": null,
   "employees": {
     "sofiane": {
-      "status": "planning"
+      "status": "idle"
+    },
+    "product-manager": {
+      "status": "idle"
     },
     "ibrahim": {
-      "status": "working"
+      "status": "idle"
+    },
+    "qa": {
+      "status": "idle"
     }
-  },
-  "last_event": null
+  }
 }

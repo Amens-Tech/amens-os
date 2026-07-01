@@ -16,58 +16,94 @@ class Planner:
         self.backlog_file = Path(backlog_file)
 
     def load_state(self):
-        with open(self.state_file) as f:
-            return json.load(f)
+        return json.loads(self.state_file.read_text())
 
     def save_state(self, state):
-        with open(self.state_file, "w") as f:
-            json.dump(state, f, indent=2)
+        self.state_file.write_text(json.dumps(state, indent=2))
 
     def load_backlog(self):
-        with open(self.backlog_file) as f:
-            return json.load(f)
+        return json.loads(self.backlog_file.read_text())
 
     def next_action(self):
 
         state = self.load_state()
 
-        if state["current_project"] is None:
+        if state["phase"] == "idle":
 
             backlog = self.load_backlog()
 
             project = next(
-                p for p in backlog if p["status"] == "todo"
+                p for p in backlog
+                if p["status"] == "todo"
             )
 
             state["current_project"] = project["name"]
-            state["employees"]["sofiane"]["status"] = "planning"
-            state["employees"]["ibrahim"]["status"] = "waiting"
+            state["phase"] = "planning"
 
             self.save_state(state)
 
             return Event(
                 event_type=EventType.SLACK_MESSAGE,
                 actor="sofiane",
-                description=f"Launch project: {project['name']}",
+                description=f"Plan project {project['name']}",
                 created_at=datetime.now(),
             )
 
-        if state["employees"]["ibrahim"]["status"] == "waiting":
+        if state["phase"] == "planning":
 
-            state["employees"]["ibrahim"]["status"] = "working"
+            state["phase"] = "backlog"
+
+            self.save_state(state)
+
+            return Event(
+                event_type=EventType.SLACK_MESSAGE,
+                actor="product-manager",
+                description=f"Create backlog for {state['current_project']}",
+                created_at=datetime.now(),
+            )
+
+        if state["phase"] == "backlog":
+
+            state["phase"] = "development"
 
             self.save_state(state)
 
             return Event(
                 event_type=EventType.SLACK_MESSAGE,
                 actor="ibrahim",
-                description=f"Continue working on project: {state['current_project']}",
+                description=f"Develop {state['current_project']}",
                 created_at=datetime.now(),
             )
 
-        return Event(
-            event_type=EventType.SLACK_MESSAGE,
-            actor="ibrahim",
-            description=f"Continue developing project: {state['current_project']}",
-            created_at=datetime.now(),
-        )
+        if state["phase"] == "development":
+
+            state["phase"] = "testing"
+
+            self.save_state(state)
+
+            return Event(
+                event_type=EventType.SLACK_MESSAGE,
+                actor="qa",
+                description=f"Test {state['current_project']}",
+                created_at=datetime.now(),
+            )
+
+        if state["phase"] == "testing":
+
+            state["phase"] = "review"
+
+            self.save_state(state)
+
+            return Event(
+                event_type=EventType.SLACK_MESSAGE,
+                actor="sofiane",
+                description=f"Review {state['current_project']}",
+                created_at=datetime.now(),
+            )
+
+        state["phase"] = "idle"
+        state["current_project"] = None
+
+        self.save_state(state)
+
+        return None

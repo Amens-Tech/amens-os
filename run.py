@@ -19,9 +19,9 @@ def main():
 
     event = planner.next_action()
 
-    print(event)
-
-    executor.execute(event)
+    if event:
+        print(event)
+        executor.execute(event)
 
 
 if __name__ == "__main__":
