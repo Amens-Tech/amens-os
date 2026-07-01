@@ -1,8 +1,8 @@
 import os
 
 from connectors.slack import SlackConnector
-from automation.events import EventType
-from automation.llm import LLM
+from core.models.event import EventType
+from core.services.llm import LLM
 
 
 class Executor:

@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from automation.llm import LLM
+from core.services.llm import LLM
 
 
 def test_load_prompt():

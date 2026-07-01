@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from datetime import datetime
 
-from automation.events import Event, EventType
+from core.models.event import Event, EventType
 
 
 class Planner:

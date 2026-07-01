@@ -3,7 +3,7 @@ from zoneinfo import ZoneInfo
 import random
 import yaml
 
-from automation.events import Event, EventType
+from core.models.event import Event, EventType
 
 
 class Scheduler:

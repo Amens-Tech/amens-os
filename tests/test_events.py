@@ -5,7 +5,7 @@ from datetime import datetime
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from automation.events import Event, EventType
+from core.models.event import Event, EventType
 
 
 def test_event_creation():

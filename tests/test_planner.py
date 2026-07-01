@@ -5,8 +5,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from automation.planner import Planner
-from automation.events import EventType
+from core.services.planner import Planner
+from core.models.event import EventType
 
 
 def test_planner_first_project(tmp_path):

@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "project": "windows-evtx-parser",
+    "title": "Create project skeleton",
+    "description": "Create a clean Python project structure with pytest.",
+    "assignee": "ibrahim",
+    "priority": "high",
+    "status": "todo"
+  },
+  {
+    "id": 2,
+    "project": "windows-evtx-parser",
+    "title": "Implement EVTX parser",
+    "description": "Read EVTX files and expose a Python API.",
+    "assignee": "ibrahim",
+    "priority": "high",
+    "status": "todo"
+  }
+]

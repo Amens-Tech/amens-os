@@ -1,3 +1,3 @@
 def test_executor_import():
-    from automation.executor import Executor
+    from core.services.executor import Executor
     assert Executor is not None

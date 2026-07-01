@@ -2,9 +2,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from automation.scheduler import Scheduler
-from automation.planner import Planner
-from automation.executor import Executor
+from core.services.scheduler import Scheduler
+from core.services.planner import Planner
+from core.services.executor import Executor
 
 
 def main():
