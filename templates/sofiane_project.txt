@@ -1,0 +1,14 @@
+Salut Ibrahim,
+
+Nous avons un nouveau projet interne.
+
+Nom : {{project}}
+
+Objectif :
+{{objective}}
+
+Priorité : {{priority}}
+
+Commence par préparer une structure Python propre avec les premiers tests unitaires.
+
+Tiens-moi au courant dès que tu as une première version.
