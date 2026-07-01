@@ -7,6 +7,14 @@ from core.models.event import Event, EventType
 
 class Planner:
 
+    PHASE_ACTORS = {
+        "planning": ("sofiane", "Plan project"),
+        "backlog": ("product-manager", "Create backlog for"),
+        "development": ("ibrahim", "Develop"),
+        "testing": ("qa", "Test"),
+        "review": ("sofiane", "Review"),
+    }
+
     def __init__(
         self,
         state_file="state/state.json",
@@ -42,68 +50,16 @@ class Planner:
 
             self.save_state(state)
 
-            return Event(
-                event_type=EventType.SLACK_MESSAGE,
-                actor="sofiane",
-                description=f"Plan project {project['name']}",
-                created_at=datetime.now(),
-            )
+        phase = state["phase"]
 
-        if state["phase"] == "planning":
+        if phase not in self.PHASE_ACTORS:
+            return None
 
-            state["phase"] = "backlog"
+        actor, action = self.PHASE_ACTORS[phase]
 
-            self.save_state(state)
-
-            return Event(
-                event_type=EventType.SLACK_MESSAGE,
-                actor="product-manager",
-                description=f"Create backlog for {state['current_project']}",
-                created_at=datetime.now(),
-            )
-
-        if state["phase"] == "backlog":
-
-            state["phase"] = "development"
-
-            self.save_state(state)
-
-            return Event(
-                event_type=EventType.SLACK_MESSAGE,
-                actor="ibrahim",
-                description=f"Develop {state['current_project']}",
-                created_at=datetime.now(),
-            )
-
-        if state["phase"] == "development":
-
-            state["phase"] = "testing"
-
-            self.save_state(state)
-
-            return Event(
-                event_type=EventType.SLACK_MESSAGE,
-                actor="qa",
-                description=f"Test {state['current_project']}",
-                created_at=datetime.now(),
-            )
-
-        if state["phase"] == "testing":
-
-            state["phase"] = "review"
-
-            self.save_state(state)
-
-            return Event(
-                event_type=EventType.SLACK_MESSAGE,
-                actor="sofiane",
-                description=f"Review {state['current_project']}",
-                created_at=datetime.now(),
-            )
-
-        state["phase"] = "idle"
-        state["current_project"] = None
-
-        self.save_state(state)
-
-        return None
+        return Event(
+            event_type=EventType.SLACK_MESSAGE,
+            actor=actor,
+            description=f"{action} {state['current_project']}",
+            created_at=datetime.now(),
+        )
