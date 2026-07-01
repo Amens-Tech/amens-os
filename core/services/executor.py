@@ -1,15 +1,16 @@
-import os
-
+from connectors.openclaw import OpenClawConnector
+from core.services.state_manager import StateManager
+from core.services.prompt_builder import PromptBuilder
 from connectors.slack import SlackConnector
 from core.models.event import EventType
-from core.services.llm import LLM
 
 
 class Executor:
 
     def __init__(self):
+        self.openclaw = OpenClawConnector()
         self.slack = SlackConnector()
-        self.llm = LLM()
+        self.state = StateManager().load()
 
     def execute(self, event):
 
@@ -17,22 +18,22 @@ class Executor:
             return
 
         if event.event_type == EventType.SLACK_MESSAGE:
-            message = self.llm.generate_message(
-                actor=event.actor,
-                instruction=event.description,
+
+            reply = self.openclaw.ask(
+                agent=event.actor,
+                session_key=f"project:{self.state['current_project']}",
+                message=PromptBuilder.build(
+                    event,
+                    self.state["current_project"],
+                ),
             )
 
             self.slack.send_message(
-                os.environ["SLACK_CHANNEL_NAME"],
-                message,
+                "amens-dev",
+                reply,
             )
 
             return
 
         if event.event_type == EventType.GIT_COMMIT:
             print(f"[GIT] {event.description}")
-            return
-
-        if event.event_type == EventType.GIT_PUSH:
-            print(f"[PUSH] {event.description}")
-            return

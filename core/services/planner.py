@@ -61,13 +61,13 @@ class Planner:
             return Event(
                 event_type=EventType.SLACK_MESSAGE,
                 actor="ibrahim",
-                description="I'll start working on it.",
+                description=f"Continue working on project: {state['current_project']}",
                 created_at=datetime.now(),
             )
 
         return Event(
-            event_type=EventType.GIT_COMMIT,
+            event_type=EventType.SLACK_MESSAGE,
             actor="ibrahim",
-            description="Continue Python development",
+            description=f"Continue developing project: {state['current_project']}",
             created_at=datetime.now(),
         )
