@@ -3,6 +3,9 @@ from core.services.state_manager import StateManager
 from core.services.prompt_builder import PromptBuilder
 from core.services.artifact_service import ArtifactService
 from core.services.status_parser import StatusParser
+from core.services.workflow_service import WorkflowService
+from core.services.patch_service import PatchService
+from core.services.verification_service import VerificationService
 from connectors.slack import SlackConnector
 from core.models.event import EventType
 
@@ -33,6 +36,42 @@ class Executor:
             status = StatusParser.parse(reply)
 
             print(f"[STATUS] {status}")
+
+            if status == "COMPLETED" and event.actor == "ibrahim":
+                diff = PatchService.extract(reply)
+
+                if diff:
+                    print("[PATCH] found")
+
+                    if not PatchService.apply(diff):
+                        print("[PATCH] apply failed")
+                        PatchService.rollback()
+                        status = "BLOCKED"
+                    else:
+                        print("[PATCH] applied")
+
+                        verification = VerificationService.pytest()
+
+                        if verification["success"]:
+                            print("[VERIFY] pytest OK")
+                            self.state = WorkflowService.advance(self.state)
+                            StateManager().save(self.state)
+                            print(f"[PHASE] -> {self.state['phase']}")
+                        else:
+                            print("[VERIFY] pytest FAILED")
+                            print(verification["stdout"])
+                            print(verification["stderr"])
+                            PatchService.rollback()
+                            status = "BLOCKED"
+
+                else:
+                    print("[PATCH] no diff found")
+                    status = "BLOCKED"
+
+            elif status == "COMPLETED":
+                self.state = WorkflowService.advance(self.state)
+                StateManager().save(self.state)
+                print(f"[PHASE] -> {self.state['phase']}")
 
             artifact_map = {
                 "sofiane": "vision" if self.state.get("phase") == "planning" else "review",

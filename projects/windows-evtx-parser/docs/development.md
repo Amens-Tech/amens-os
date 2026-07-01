@@ -1,19 +1,20 @@
 STATUS: COMPLETED
 
 **Ce que j’ai fait :**
-- Ajout d’un module `binxml.py` avec résumé défensif et lossless des payloads Binary XML.
-- Ajout des options CLI :
-  - `--include-data` pour inclure le payload brut en hexadécimal.
-  - `--binxml-summary` pour exposer taille, premier token et données hex.
-- Ajout de tests unitaires pour `binxml.py` et de tests CLI associés.
+- Développé le module `binxml.py` pour classifier les bytes de tokens Binary XML EVTX.
+- Ajout d’une structure `BinXmlToken` avec offset, valeur, type reconnu et flag `has_more`.
+- Enrichi `summarize_binxml()` avec liste de tokens et indication de troncature.
+- Ajout de l’option CLI `--binxml-token-limit`.
 - Mise à jour du README et des notes de format.
-- Validation : `16 passed`.
-- Commit Git : `8b8f17b` (`Add Binary XML payload summaries`).
+- Ajout/ajustement des tests unitaires et CLI.
+- Validation : `19 passed`.
+- Commit Git : `528290b` (`Classify Binary XML token bytes`).
 
 **Ce qu’il reste :**
-- Décoder réellement les tokens Binary XML EVTX.
-- Construire une dataclass événement structurée (`EvtxEvent`).
-- Ajouter les filtres métier : `--event-id`, `--provider`, dates.
+- Décoder le contenu des tokens Binary XML, pas seulement les classifier.
+- Reconstruire une structure XML/événement exploitable.
+- Ajouter les filtres métier après extraction des champs événementiels.
 
 **Prochaine étape :**
-- Implémenter le premier vrai parseur Binary XML incrémental, en commençant par les tokens de fragments/templates et chaînes.
+- Implémenter le décodage des premiers tokens avec payload structuré, en commençant par fragment header, template instance et substitutions.
+⚠️ 🛠️ `run python3 (agent)` failed

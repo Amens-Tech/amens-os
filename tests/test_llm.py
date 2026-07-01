@@ -13,4 +13,4 @@ def test_load_prompt():
 
     prompt = llm.load_prompt("sofiane")
 
-    assert "Sofiane" in prompt
+    assert "CTO of Amens Tech" in prompt
