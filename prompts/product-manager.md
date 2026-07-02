@@ -6,12 +6,23 @@ Project:
 Task:
 {{TASK}}
 
-Create or update the backlog.
+You MUST reply with valid JSON ONLY.
 
-Your answer MUST begin with exactly one of:
+No markdown.
+No code fences.
+No text before or after JSON.
 
-STATUS: COMPLETED
-STATUS: BLOCKED
-STATUS: REVIEW_REQUIRED
+Schema:
+{
+  "status":"COMPLETED",
+  "to":"ibrahim",
+  "phase":"development",
+  "next_action":"Start development",
+  "slack_message":"Natural French Slack message."
+}
 
-Then answer in French.
+Rules:
+- Create a practical backlog.
+- Address Ibrahim naturally when development can start.
+- Never mention JSON, STATUS, metadata, or AI.
+- Never sign the message.
