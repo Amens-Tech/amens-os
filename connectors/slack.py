@@ -9,10 +9,12 @@ class SlackConnector:
         token = os.getenv("SLACK_BOT_TOKEN")
         self.client = WebClient(token=token) if token else None
 
-    def send_message(self, channel, text):
+    def send_message(self, channel, text, thread_ts=None):
 
         if self.client is None:
             print(f"[SLACK disabled] #{channel}")
+            if thread_ts:
+                print(f"[THREAD] {thread_ts}")
             print(text)
             return None
 
@@ -20,8 +22,8 @@ class SlackConnector:
             response = self.client.chat_postMessage(
                 channel=channel,
                 text=text,
+                thread_ts=thread_ts,
             )
-
             return response["ts"]
 
         except SlackApiError as e:
